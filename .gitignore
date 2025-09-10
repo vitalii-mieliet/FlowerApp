@@ -60,4 +60,5 @@ jest-html-reporters-*.html
 /server/node_modules/
 /client/dist/
 /server/dist/
-/server/uploads/  
+/server/uploads/
+.idea
