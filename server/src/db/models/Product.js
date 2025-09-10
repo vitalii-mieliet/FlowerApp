@@ -12,8 +12,9 @@ const productSchema = new Schema(
       default: 0,
       min: 0,
     },
-    shop: {
-      type: String,
+    shopId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Shop',
       required: true,
     },
     image: {
