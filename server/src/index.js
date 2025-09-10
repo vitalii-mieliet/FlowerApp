@@ -1,8 +1,9 @@
-import express from 'express';
+import initMongoConnection from './db/initMongoConnection.js';
+import setupServer from './server.js';
 
-const app = express();
-const PORT = 3000;
+const bootstrap = async () => {
+  await initMongoConnection();
+  setupServer();
+};
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+bootstrap();
