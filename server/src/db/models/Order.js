@@ -45,5 +45,29 @@ const orderSchema = new Schema(
   },
 );
 
+orderSchema.pre('validate', function (next) {
+  if (!this.items || !Array.isArray(this.items) || this.items.length === 0) {
+    this.totalPrice = 0;
+    return next();
+  }
+
+  this.items.forEach((item) => {
+    const price =
+      typeof item.price === 'number' ? item.price : Number(item.price) || 0;
+    const quantity =
+      typeof item.quantity === 'number'
+        ? item.quantity
+        : Number(item.quantity) || 0;
+    item.total = price * quantity;
+  });
+
+  this.totalPrice = this.items.reduce(
+    (acc, item) => acc + (item.total || 0),
+    0,
+  );
+
+  next();
+});
+
 const Order = model('Order', orderSchema);
 export default Order;
